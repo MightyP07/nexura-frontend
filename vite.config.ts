@@ -18,12 +18,13 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      "@": path.resolve(import.meta.dirname, "client", "src"),
+      "@": path.resolve(import.meta.dirname, "src"), // updated
       "@shared": path.resolve(import.meta.dirname, "shared"),
       "@assets": path.resolve(import.meta.dirname, "attached_assets"),
     },
   },
-  root: path.resolve(import.meta.dirname, "client"),
+  root: path.resolve(import.meta.dirname), // removed client
+  publicDir: path.resolve(import.meta.dirname, "public"), // updated
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
@@ -38,15 +39,13 @@ export default defineConfig({
         }
       }
     },
-    chunkSizeWarningLimit: 1000, // Increase limit to reduce warnings
+    chunkSizeWarningLimit: 1000,
   },
   server: {
     fs: {
       strict: true,
       deny: ["**/.*"],
     },
-    // Disable Vite's HMR overlay so runtime errors appear in the browser console
-    // instead of as a blocking overlay. This helps capture the full stack trace.
     hmr: {
       overlay: false,
     },
